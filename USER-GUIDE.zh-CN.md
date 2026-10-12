@@ -64,14 +64,14 @@ policy:
 | --- | --- | --- |
 | [ask-matt](skills/engineering/ask-matt/SKILL.md) | 输入目前处境，帮助选择技能和路径 | 推荐前须读取相应 SKILL.md，不能只依赖路由摘要；不代替人触发其他用户技能 |
 | [setup-matt-pocock-skills](skills/engineering/setup-matt-pocock-skills/SKILL.md) | 每个业务仓库首次使用时配置运行约定 | tracker、分诊标签、领域文档位置和入口指针 |
-| [grill-with-docs](skills/engineering/grill-with-docs/SKILL.md) | 在有工作目录的情况下，追问需求、设计和边界 | 清晰决策、`GLOSSARY.md`、必要的 ADR；调用 `grilling` 和 `domain-modeling` |
+| [grill-with-docs](skills/engineering/grill-with-docs/SKILL.md) | 在有工作目录的情况下，追问需求、设计和边界 | 清晰决策、`GLOSSARY.md`、必要的 ADR；调用 `grilling` 和 `domain-modeling`，遇到事实缺口时通过 `grilling` 间接启动探索子代理 |
 | [to-spec](skills/engineering/to-spec/SKILL.md) | 把已经讨论清楚的对话综合为规格 | 发布 spec，确认测试边界，标记 `ready-for-agent`；不重新做需求访谈 |
 | [to-tickets](skills/engineering/to-tickets/SKILL.md) | 把规格、计划或对话拆成可独立验证的任务 | 纵向切片 tickets、验收标准、阻塞关系；拆分获认可后发布 |
-| [implement](skills/engineering/implement/SKILL.md) | 实现明确的规格或任务 | 先获取所引用的任务并声明标题，再调用 TDD 和评审，最后提交当前分支；适合小改动或逐票控制 |
-| [implement-spec](skills/engineering/implement-spec/SKILL.md) | 按任务图实现整个规格 | 集成分支；就绪任务由子代理在独立 worktree 执行，汇合后统一评审 |
-| [triage](skills/engineering/triage/SKILL.md) | 整理外部提交的 bug、需求，及按配置纳入的 PR | 分类、状态、复现证据、agent brief 或补充信息请求；不直接承担实现 |
-| [wayfinder](skills/engineering/wayfinder/SKILL.md) | 面对跨多个会话、路线不明的大工程 | 决策地图及相互关联的决策任务；路线清楚后转入 spec 和实现流程 |
-| [improve-codebase-architecture](skills/engineering/improve-codebase-architecture/SKILL.md) | 找出模块难理解、难测试和接口泄漏的改进机会 | 临时目录中的 HTML 架构报告；用户选候选后进一步访谈，不自动重构全部仓库 |
+| [implement](skills/engineering/implement/SKILL.md) | 实现明确的规格或任务 | 先获取所引用的任务并声明标题，再调用 TDD 和评审，最后提交当前分支；主体实现未规定委派子代理，收尾通过 `code-review` 间接启动评审子代理 |
+| [implement-spec](skills/engineering/implement-spec/SKILL.md) | 按任务图实现整个规格 | 集成分支；直接启动实现子代理在独立 worktree 开发就绪任务，尽可能后台并行；合并子代理汇入集成分支，可选探索子代理；最后调用 `code-review`，由一个实现子代理处理评审问题 |
+| [triage](skills/engineering/triage/SKILL.md) | 整理外部提交的 bug、需求，及按配置纳入的 PR | 分类、状态、复现证据、agent brief 或补充信息请求；不直接承担实现；需要访谈时调用 `grilling`，可能间接启动事实探索子代理 |
+| [wayfinder](skills/engineering/wayfinder/SKILL.md) | 面对跨多个会话、路线不明的大工程 | 决策地图及相互关联的决策任务；有 research 票时直接启动子代理调用 `research`，并行处理研究；访谈也可能通过 `grilling` 委派事实探索；路线清楚后转入 spec 和实现流程 |
+| [improve-codebase-architecture](skills/engineering/improve-codebase-architecture/SKILL.md) | 找出模块难理解、难测试和接口泄漏的改进机会 | 直接启动子代理探索代码库，产出临时目录中的 HTML 架构报告；选候选后进一步访谈；探索多种接口时通过 `codebase-design` 启动并行设计子代理，不自动重构全部仓库 |
 | [retro](skills/engineering/retro/SKILL.md) | 回顾本次或指定开发会话 | 按严重程度排列的环境改进建议，涉及导航、自动检查、规范、工具和文档 |
 
 ### 3.2 正式工程技能：模型可触发，9 个
@@ -79,12 +79,12 @@ policy:
 | Skill | 何时使用 | 主要产物、边界 |
 | --- | --- | --- |
 | [prototype](skills/engineering/prototype/SKILL.md) | 逻辑、状态或 UI 问题无法只靠谈话判断 | 可运行原型及验证结论；逻辑为单 HTML，UI 为可切换的差异化方案；原型保留在非主线分支 |
-| [research](skills/engineering/research/SKILL.md) | 技术选择或事实需要查一手资料 | 后台代理研究、带引用的 Markdown；帮助决策，不代替需求澄清 |
+| [research](skills/engineering/research/SKILL.md) | 技术选择或事实需要查一手资料 | 直接启动独立后台子代理查阅一手资料，产出带引用的 Markdown；主会话可继续工作，研究不代替需求澄清 |
 | [diagnosing-bugs](skills/engineering/diagnosing-bugs/SKILL.md) | 难复现 bug、间歇错误或性能回归 | 失败反馈循环、最小复现、验证假设、修复及回归证据 |
 | [tdd](skills/engineering/tdd/SKILL.md) | 在认可的公共边界逐步实现行为 | 提议 seam 时说明覆盖与遗漏；一个失败测试、最小实现、通过，再做下一行为；重构留给评审阶段 |
 | [domain-modeling](skills/engineering/domain-modeling/SKILL.md) | 领域术语模糊、多义，或要保存关键决策 | 校准词汇表、用边界场景检验概念、记录 ADR；不只是读取术语 |
-| [codebase-design](skills/engineering/codebase-design/SKILL.md) | 设计模块接口、测试边界和封装方式 | 深模块的共同设计原则：小接口承载大量行为、清晰的 seam、适配器和局部性 |
-| [code-review](skills/engineering/code-review/SKILL.md) | 检查相对固定基点的分支变更 | 搜索全部规范来源；同时发起前台 Standards 与 Spec 子代理并汇总；须提供比较基点和规格来源 |
+| [codebase-design](skills/engineering/codebase-design/SKILL.md) | 设计模块接口、测试边界和封装方式 | 深模块的共同设计原则：小接口承载大量行为、清晰的 seam、适配器和局部性；仅进入 Design It Twice 接口探索时，直接启动 3 个以上并行子代理设计不同方案，再比较取舍 |
+| [code-review](skills/engineering/code-review/SKILL.md) | 检查相对固定基点的分支变更 | 搜索全部规范来源；直接并行启动 Standards 与 Spec 两个前台子代理，等待并汇总报告；没有规格时跳过 Spec 子代理；须提供比较基点，先确认 diff 有效且非空 |
 | [pr](skills/engineering/pr/SKILL.md) | 编写 PR 正文 | Summary 最小图示、Before/After 证据、Merge Danger；自身主要是正文模板 |
 | [wizard](skills/engineering/wizard/SKILL.md) | 存在只能由人完成的配置、授权或基础设施步骤 | 可交互 Bash 向导；模型可自行完成的步骤不应转交给人 |
 
@@ -92,7 +92,7 @@ policy:
 
 | Skill | 职责 | 产物、适用边界 |
 | --- | --- | --- |
-| [grill-me](skills/productivity/grill-me/SKILL.md) | 用持续访谈澄清计划或想法 | 共同理解；不主动保存领域文档。有仓库时通常选 `grill-with-docs` |
+| [grill-me](skills/productivity/grill-me/SKILL.md) | 用持续访谈澄清计划或想法 | 共同理解；不主动保存领域文档；通过 `grilling` 在事实缺口出现时间接启动探索子代理。有仓库时通常选 `grill-with-docs` |
 | [handoff](skills/productivity/handoff/SKILL.md) | 换客户端、目录、协作者或拆出旁支时交接 | 操作系统临时目录中的交接 Markdown；链接已有产物，保留下一步及建议技能，脱敏 |
 | [teach](skills/productivity/teach/SKILL.md) | 围绕真实目标开展跨会话教学 | 工作目录中的教学目标、学习记录、课程、练习及参考资料 |
 | [to-questionnaire](skills/productivity/to-questionnaire/SKILL.md) | 关键事实或决策掌握在另一人手中 | 给该人的 Markdown 问卷；先问你接收者和所需答案，不强迫你代答主题 |
@@ -102,7 +102,7 @@ policy:
 
 | Skill | 职责 | 被怎样复用 |
 | --- | --- | --- |
-| [grilling](skills/productivity/grilling/SKILL.md) | 访谈基本方法，把问题展开为决策树，逐步消除未决项 | `grill-me`、`grill-with-docs`、`triage`、`wayfinder`、架构改进流程 |
+| [grilling](skills/productivity/grilling/SKILL.md) | 访谈基本方法，把问题展开为决策树，逐步消除未决项 | 被 `grill-me`、`grill-with-docs`、`triage`、`wayfinder`、架构改进流程复用；问题需要环境事实时直接委派探索子代理，继续讨论不依赖结果的分支；业务决策仍由用户回答 |
 | [writing-for-agents](skills/productivity/writing-for-agents/SKILL.md) | 写模型能稳定执行的文档，设计指针、步骤、完成标准和渐进披露 | skill、AGENTS.md、CLAUDE.md、代理参考文档，以及 `retro` |
 
 ### 3.5 实验性技能：全部用户触发，7 个
@@ -111,9 +111,9 @@ policy:
 
 | Skill | 职责与产物 |
 | --- | --- |
-| [chief-of-staff](skills/in-progress/chief-of-staff/SKILL.md) | 通过长期会话协调后台子代理推进长期目标，同时改善规范、检查和数据访问等环境；运行环境允许时建议周期安排 |
-| [loop-me](skills/in-progress/loop-me/SKILL.md) | 识别工作生活中的重复流程，通过访谈形成 `workflows/*.md` 的可实施工作流规格；不自动部署工作流 |
-| [claude-handoff](skills/in-progress/claude-handoff/SKILL.md) | 先把交接摘要保存到系统临时目录，再从文件读入启动新的 Claude 后台代理，减少摘要被 shell 展开的风险 |
+| [chief-of-staff](skills/in-progress/chief-of-staff/SKILL.md) | 要求工作交给独立后台子代理，主会话保留交流与协调，通过产物指针沟通；推进长期目标并改善规范、检查和数据访问等环境；运行环境允许时建议周期安排 |
+| [loop-me](skills/in-progress/loop-me/SKILL.md) | 识别工作生活中的重复流程，通过访谈形成 `workflows/*.md` 的可实施工作流规格；沿用 grilling 方法，事实缺口可能间接触发探索子代理；不自动部署工作流 |
+| [claude-handoff](skills/in-progress/claude-handoff/SKILL.md) | 先把交接摘要保存到系统临时目录，再从文件读入，用 `claude --bg` 启动新的独立 Claude 后台代理接手会话；属于会话交接而非主代理内部任务拆分，减少摘要被 shell 展开的风险 |
 | [setup-ts-deep-modules](skills/in-progress/setup-ts-deep-modules/SKILL.md) | 用 dependency-cruiser 约束 TypeScript 包只能通过入口访问实现，测试也通过入口开展 |
 | [writing-fragments](skills/in-progress/writing-fragments/SKILL.md) | 访谈挖掘写作素材，积累原始片段 |
 | [writing-beats](skills/in-progress/writing-beats/SKILL.md) | 把素材组织成逐个推进的文章节拍，边写边选择后续路线 |
