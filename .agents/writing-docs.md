@@ -6,7 +6,9 @@ Most of these skills are **user-invoked**: the agent will never fire them for yo
 
 Act whenever a promoted skill is added, renamed, or has its behaviour changed: create or re-sync its docs page. A rename moves the file too (`docs/<bucket>/<old>.md` → `docs/<bucket>/<new>.md`), because the published URL tracks the name; a skill that moves between `engineering/` and `productivity/` moves its docs file to the matching folder. Skills in `misc/`, `in-progress/`, and `deprecated/` get no page, because none of those buckets is promoted. A skill moving *out* of one of them into `engineering/` or `productivity/` gains a page; one moving the other way loses it. A promoted skill that is removed outright keeps its page as an **archived** page: leave the body as it was and open it with a blockquote notice (`> **Archived.** ...`) naming the version it was removed in and any replacement, so the published URL keeps resolving.
 
-Because these pages are published on `aihero.dev`, **every link is absolute**: never a repo-relative path. A link to another skill points at `https://aihero.dev/skills-<name>`; a link into the repo points at its full `https://github.com/mattpocock/skills/...` URL. A relative link that works in the repo breaks once published.
+For this fork, the renamed `skill-guide` and `setup-engineering-workflow` pages and links to them use absolute GitHub URLs under `https://github.com/YZJ2016/mattpocock-skills/blob/for-me/docs/engineering/`; their new slugs have not been published on `aihero.dev`. Other pages retain their upstream URLs.
+
+Because the upstream pages are published on `aihero.dev`, **every link is absolute**: never a repo-relative path. A link to another skill points at `https://aihero.dev/skills-<name>`; a link into the repo points at its full `https://github.com/mattpocock/skills/...` URL. A relative link that works in the repo breaks once published.
 
 There is no H1. The published page takes its title from the slug.
 
@@ -33,7 +35,7 @@ How and when you reach for the skill, in two beats that are both effectively alw
 
 ## Prerequisites
 
-Optional: include only when the skill needs something in place to be functional; omit the heading entirely otherwise. Covers: a **workspace it writes into** (a stateful skill like `grill-with-docs` writes `GLOSSARY.md` and ADRs; `teach` builds a whole directory, so say what it writes and where), **prior setup** (`triage`/`to-spec`/`to-tickets` need `setup-matt-pocock-skills` to have configured an issue tracker), or **repo-specific tooling**. A stateless skill that runs anywhere has no prerequisites, so drop the section.
+Optional: include only when the skill needs something in place to be functional; omit the heading entirely otherwise. Covers: a **workspace it writes into** (a stateful skill like `grill-with-docs` writes `GLOSSARY.md` and ADRs; `teach` builds a whole directory, so say what it writes and where), **prior setup** (`triage`/`to-spec`/`to-tickets` need `setup-engineering-workflow` to have configured an issue tracker), or **repo-specific tooling**. A stateless skill that runs anywhere has no prerequisites, so drop the section.
 
 ## <free-form middle>
 
@@ -63,9 +65,9 @@ A few bullets naming what the reader sees when the skill is doing its job. The b
 
 Always present. Situate the skill in the system in a sentence or two:
 
-- **Role.** Name it: a **chain step** (`grill-with-docs → to-spec → to-tickets → implement → code-review`), a **run-once setup** (`setup-matt-pocock-skills`), **periodic maintenance** (`improve-codebase-architecture`, "every few days"), or a **reach-for-it-anytime standalone** (`diagnosing-bugs`, `prototype`, `handoff`). A standalone's map is one honest sentence, which is far better than omitting the section.
+- **Role.** Name it: a **chain step** (`grill-with-docs → to-spec → to-tickets → implement → code-review`), a **run-once setup** (`setup-engineering-workflow`), **periodic maintenance** (`improve-codebase-architecture`, "every few days"), or a **reach-for-it-anytime standalone** (`diagnosing-bugs`, `prototype`, `handoff`). A standalone's map is one honest sentence, which is far better than omitting the section.
 - **Neighbours.** The one or two siblings that matter, each with a because-clause, linked absolutely.
-- **The map.** Point to [ask-matt](https://aihero.dev/skills-ask-matt), the router over the whole set, so this page stays a node and never has to redraw the graph.
+- **The map.** Point to [skill-guide](https://github.com/YZJ2016/mattpocock-skills/blob/for-me/docs/engineering/skill-guide.md), the router over the whole set, so this page stays a node and never has to redraw the graph.
 
 </page-template>
 
@@ -85,7 +87,7 @@ Always present. Situate the skill in the system in a sentence or two:
 - `## What it does` states the defining constraint, as plain prose rather than a labelled aside.
 - The page names no author and quotes no author: every claim stands on its own.
 - `## When to reach for it` states invocation mode and the trigger boundary.
-- `## Where it fits` names the role and links to `ask-matt`.
+- `## Where it fits` names the role and links to `skill-guide`.
 - A prerequisite (workspace, prior setup, tooling) is stated where one exists, and the section is absent where none does.
 - The middle surfaces the leading word.
 - Every AI Coding Dictionary term the page uses is spelt the dictionary's way, and its first use (and only its first use) links to the dictionary entry.

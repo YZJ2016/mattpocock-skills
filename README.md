@@ -22,7 +22,22 @@ If you want to keep up with changes to these skills, and any new ones I create, 
 
 [Sign Up To The Newsletter](https://www.aihero.dev/s/skills-newsletter)
 
-## Installation (30-second setup)
+## Installation for this branch
+
+This branch uses the plugin name `engineering-workflow-skills`. Two skill names differ from upstream:
+
+| Upstream name | Name in this branch |
+| --- | --- |
+| `ask-matt` | `skill-guide` |
+| `setup-matt-pocock-skills` | `setup-engineering-workflow` |
+
+To use this checkout, copy the skill directories listed in `.claude-plugin/plugin.json` into your client's supported local skills directory. Keep each directory intact, including `agents/` and supporting files. For Codex, the shared local directory is `~/.agents/skills/`. Copy from a checkout of `for-me` after the changes have been committed there. Update copied skills manually from that branch.
+
+Then explicitly invoke `setup-engineering-workflow` once in the project you want to configure, or `skill-guide` to choose a workflow. Their invocation policies are unchanged. Local skill copies use their own names; the plugin namespace applies when the client loads them as a plugin.
+
+The renamed plugin has not been published to the upstream marketplaces. The commands below install the upstream edition, with its original plugin and skill names.
+
+## Upstream installation reference
 
 A plugin updates itself. [skills.sh](https://skills.sh/mattpocock/skills) copies editable files into your project, and you update them by hand. Pick one per agent, because installing both gives you every skill twice.
 
@@ -216,11 +231,11 @@ Skills I use daily for code work.
 
 **User-invoked**
 
-- **[ask-matt](./skills/engineering/ask-matt/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+- **[skill-guide](./skills/engineering/skill-guide/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `GLOSSARY.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)**: Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
-- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
+- **[setup-engineering-workflow](./skills/engineering/setup-engineering-workflow/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. No interview, just synthesizes what you've already discussed.
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker.
 - **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.

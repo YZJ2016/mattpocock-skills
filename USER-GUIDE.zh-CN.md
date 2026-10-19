@@ -1,6 +1,16 @@
-# Matt Pocock Skills 中文使用手册
+# Engineering Workflow Skills 中文使用手册
 
-本手册基于当前仓库源码梳理，核对日期为 2026-10-12，基线提交为 `ac3d709`，插件清单版本为 `1.3.1`。上一版基线为 `68e987c`。适用对象是这套仓库中的 skills，不包括运行环境另外安装的 Superpowers、CodeGraph 等技能。安装命令和更新机制引用仓库自己的约定，不表示本次已安装或验证各客户端兼容性。
+本手册基于当前仓库源码梳理，核对日期为 2026-10-19。命名调整基于 `18c19f5`，目标分支为 `for-me`，插件清单版本仍为 `1.3.1`。适用对象是这套仓库中的 skills，不包括运行环境另外安装的 Superpowers、CodeGraph 等技能。下列安装参考不表示本次已安装或验证各客户端兼容性。
+
+## 本分支的命名调整
+
+| 原名称 | 本分支名称 | 功能 |
+| --- | --- | --- |
+| `ask-matt` | `skill-guide` | 根据当前处境推荐技能及流程，帮助人选择下一步 |
+| `setup-matt-pocock-skills` | `setup-engineering-workflow` | 配置项目 tracker、分诊标签、术语表及 ADR 布局 |
+| 插件 `mattpocock-skills` | `engineering-workflow-skills` | 正式技能的统一插件标识及客户端命名空间 |
+
+技能数量、职责和调用规则不变。前两个技能仍只能由用户显式调用，`skill-guide` 推荐流程后由人选择下一步。目录、元数据、文档及运行中的引用均使用新名称；历史记录、版权署名和上游来源保留原名。旧名称没有兼容别名，迁移后应从技能选择器选择新名称。
 
 ## 本次上游更新摘要
 
@@ -19,7 +29,7 @@
 
 它把 AI 驱动开发拆成可以组合的工程方法：澄清需求、建立领域语言、形成规格、拆分任务、编写测试与实现、评审、提交和复盘。
 
-它没有一个自动包办全部阶段的总控制器。人负责选择流程、确定业务决策和认可关键边界；模型负责查事实、执行方法、产出代码与证据。`ask-matt` 是帮助人选择下一步的路由器，不是自动运行全部技能的调度器。
+它没有一个自动包办全部阶段的总控制器。人负责选择流程、确定业务决策和认可关键边界；模型负责查事实、执行方法、产出代码与证据。`skill-guide` 是帮助人选择下一步的路由器，不是自动运行全部技能的调度器。
 
 框架强调四件事：
 
@@ -62,8 +72,8 @@ policy:
 
 | Skill | 职责与典型输入 | 主要产物、边界 |
 | --- | --- | --- |
-| [ask-matt](skills/engineering/ask-matt/SKILL.md) | 输入目前处境，帮助选择技能和路径 | 推荐前须读取相应 SKILL.md，不能只依赖路由摘要；不代替人触发其他用户技能 |
-| [setup-matt-pocock-skills](skills/engineering/setup-matt-pocock-skills/SKILL.md) | 每个业务仓库首次使用时配置运行约定 | tracker、分诊标签、领域文档位置和入口指针 |
+| [skill-guide](skills/engineering/skill-guide/SKILL.md) | 输入目前处境，帮助选择技能和路径 | 推荐前须读取相应 SKILL.md，不能只依赖路由摘要；不代替人触发其他用户技能 |
+| [setup-engineering-workflow](skills/engineering/setup-engineering-workflow/SKILL.md) | 每个业务仓库首次使用时配置运行约定 | tracker、分诊标签、领域文档位置和入口指针 |
 | [grill-with-docs](skills/engineering/grill-with-docs/SKILL.md) | 在有工作目录的情况下，追问需求、设计和边界 | 清晰决策、`GLOSSARY.md`、必要的 ADR；调用 `grilling` 和 `domain-modeling`，遇到事实缺口时通过 `grilling` 间接启动探索子代理 |
 | [to-spec](skills/engineering/to-spec/SKILL.md) | 把已经讨论清楚的对话综合为规格 | 发布 spec，确认测试边界，标记 `ready-for-agent`；不重新做需求访谈 |
 | [to-tickets](skills/engineering/to-tickets/SKILL.md) | 把规格、计划或对话拆成可独立验证的任务 | 纵向切片 tickets、验收标准、阻塞关系；拆分获认可后发布 |
@@ -146,7 +156,7 @@ policy:
 - `docs/engineering/resolving-merge-conflicts.md` 是归档页面，没有对应的当前技能；不要把它计入技能清单。
 - README 用 red-green-refactor 概括 TDD；当前 `tdd/SKILL.md` 明确规定红→绿逐片实现，重构放到评审阶段。
 - README 安装简介已与 setup 对齐为 GitHub、GitLab、本地文件及用户描述的其他 tracker；上一版手册指出的这一处差异已修复。
-- 新增 `chief-of-staff` 已有 SKILL.md 和调用策略文件，但当前 `skills/in-progress/README.md` 尚未列出它，`ask-matt` 也没有它的路由项。因此不能只凭 README 或路由摘要作完整技能清点。
+- 新增 `chief-of-staff` 已有 SKILL.md 和调用策略文件，但当前 `skills/in-progress/README.md` 尚未列出它，`skill-guide` 也没有它的路由项。因此不能只凭 README 或路由摘要作完整技能清点。
 
 ## 4. 流程如何组合
 
@@ -205,7 +215,11 @@ flowchart TD
 
 ### 5.1 选择一种安装方式
 
-新版仓库优先推荐托管安装。下面是仓库当前公布的命令，不代表本次已实际执行。
+**使用本分支的通用名称版本：**在本次改动提交到 `for-me` 后，检出该分支，将 `.claude-plugin/plugin.json` 的 `skills` 数组列出的正式技能目录完整复制到客户端支持的本地技能目录。Codex 可使用 `~/.agents/skills/`。目录内的 `agents/`、脚本和参考文件一并保留，更新时从 `for-me` 手动同步。本次没有安装技能或修改客户端配置。
+
+已有旧版安装时，先在客户端确认所选来源，避免上游插件和本地副本同时提供同名技能。旧的 `ask-matt`、`setup-matt-pocock-skills` 入口不会自动转向新名称；确认迁移成功后，可移除自己不再使用的旧安装。
+
+改名后的插件尚未发布到上游官方市场，原有 marketplace 标识保留。下面各条命令属于**上游原名版本的安装参考**，会获得 `mattpocock-skills`、`ask-matt` 和 `setup-matt-pocock-skills`，不会安装本分支的新名称。以下更新机制也仅描述上游约定，未经本次实测。
 
 **Claude Code：**
 
@@ -279,7 +293,7 @@ npx skills@latest add mattpocock/skills --skill=to-spec
 打开真正要开发的仓库，显式运行：
 
 ```text
-/setup-matt-pocock-skills
+/setup-engineering-workflow
 ```
 
 它先检查远程仓库、已有指令文件和领域文档，再确定：
@@ -308,14 +322,14 @@ setup 配置领域文档的约定，不等于已经替你完成领域建模。�
 ### 6.1 不知道从哪里开始
 
 ```text
-/ask-matt
+/skill-guide
 我有一个需求，但不知道应先澄清、做原型，还是直接实现。
 目前已知道……，尚未确定……，预计涉及……。
 ```
 
 它给出路线。然后由你选择并显式调用建议的用户技能。
 
-新版要求 ask-matt 在描述一个技能职责或建议跳过阶段前，先读取对应 SKILL.md；路由摘要只是导航。因此不能只根据一句简介决定省略关键步骤。
+新版要求 skill-guide 在描述一个技能职责或建议跳过阶段前，先读取对应 SKILL.md；路由摘要只是导航。因此不能只根据一句简介决定省略关键步骤。
 
 ### 6.2 一个会话可完成的小需求
 
@@ -464,7 +478,7 @@ Standards 轴检查仓库规范及代码异味；Spec 轴检查功能是否兑�
 ### 第一步：初始化项目约定
 
 ```text
-/setup-matt-pocock-skills
+/setup-engineering-workflow
 这个项目用本地 Markdown 管理工作，单一领域上下文，保留默认分诊标签。
 ```
 
@@ -670,7 +684,7 @@ PR 正文的证据应来自真正执行的结果：修复前允许重叠，修�
 - 报告现有技能问题时，提供真实会话中“运行了什么、实际做了什么、预期是什么”；纯假设改进不能满足 SCOPE 的门槛。
 - misc 已冻结；新 skill 的外部提案和贡献不接收。个人流程可以组合已有技能或在自己的副本里实现。
 - grilling 默认使用普通聊天提问，推荐答案的问法应让“yes”表示接受推荐；需要客户端专用问答工具时可在自己的指令文件里表达偏好。
-- 同名命令冲突由客户端或个人副本处理；Claude Code 插件可以用 `/mattpocock-skills:research` 等命名空间形式明确选择。
+- 同名命令冲突由客户端或个人副本处理；Claude Code 插件可以用 `/engineering-workflow-skills:research` 等命名空间形式明确选择。
 - 子代理无限递归和深度限制被视为运行环境的职责，技能本身不保证防递归。
 - teach 的课程路径以启动教学的目录为基准，格式模板以技能目录为基准；测验正确选项的位置应变化。
 - wizard 模板改善了带引号值的读取、输入结束处理、新 .env 文件的权限，以及重跑和运行期间编辑的稳健性。作者继续只修改阶段部分，沿用模板函数，不需要为了使用更新而重写向导库。
@@ -680,10 +694,10 @@ PR 正文的证据应来自真正执行的结果：修复前允许重叠，修�
 - [README：整体理念、正式技能与安装约定](README.md)
 - [CLAUDE.md：目录、发布、文档与调用约束](CLAUDE.md)
 - [.agents/invocation.md：用户与模型调用的正式定义](.agents/invocation.md)
-- [ask-matt：主流程、旁路及选路依据](skills/engineering/ask-matt/SKILL.md)
-- [PHASE-BOUNDARIES.md：会话阶段切换](skills/engineering/ask-matt/PHASE-BOUNDARIES.md)
+- [skill-guide：主流程、旁路及选路依据](skills/engineering/skill-guide/SKILL.md)
+- [PHASE-BOUNDARIES.md：会话阶段切换](skills/engineering/skill-guide/PHASE-BOUNDARIES.md)
 - [安装命令的仓库统一约定](.agents/install-block.md)
-- [本地 issue tracker 模板](skills/engineering/setup-matt-pocock-skills/issue-tracker-local.md)
+- [本地 issue tracker 模板](skills/engineering/setup-engineering-workflow/issue-tracker-local.md)
 - [.claude-plugin/plugin.json：正式发布的 27 个技能](.claude-plugin/plugin.json)
 - [SCOPE.md：上游维护和反馈范围](SCOPE.md)
 - [misc 冻结说明](.out-of-scope/frozen-misc-skills.md)

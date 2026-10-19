@@ -1,5 +1,22 @@
 # The canonical install block
 
+## Installation for this branch
+
+This branch uses the plugin name `engineering-workflow-skills`. Two skill names differ from upstream:
+
+| Upstream name | Name in this branch |
+| --- | --- |
+| `ask-matt` | `skill-guide` |
+| `setup-matt-pocock-skills` | `setup-engineering-workflow` |
+
+To use this checkout, copy the skill directories listed in `.claude-plugin/plugin.json` into your client's supported local skills directory. Keep each directory intact, including `agents/` and supporting files. For Codex, the shared local directory is `~/.agents/skills/`. Copy from a checkout of `for-me` after the changes have been committed there. Update copied skills manually from that branch.
+
+Then explicitly invoke `setup-engineering-workflow` once in the project you want to configure, or `skill-guide` to choose a workflow. Their invocation policies are unchanged. Local skill copies use their own names; the plugin namespace applies when the client loads them as a plugin.
+
+The renamed plugin has not been published to the upstream marketplaces. The commands below install the upstream edition, with its original plugin and skill names.
+
+## Upstream installation reference
+
 One install story, one wording. `README.md`, `.changeset/*`, and every page under `docs/` must say **this** and nothing else. Change it here first, then propagate.
 
 ## Managed installs first
